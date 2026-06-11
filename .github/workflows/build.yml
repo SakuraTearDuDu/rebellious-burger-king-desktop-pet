@@ -34,5 +34,5 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: Snacky-桌面宠物
-          path: dist/Snacky-桌面宠物.exe
+          name: 叛逆汉堡大王-桌面宠物
+          path: dist/叛逆汉堡大王-桌面宠物.exe

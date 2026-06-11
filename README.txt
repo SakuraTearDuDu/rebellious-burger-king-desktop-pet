@@ -1,33 +1,33 @@
-Snacky-桌面宠物 便携版
+叛逆汉堡大王-桌面宠物 便携版
 
 下载与运行：
-1. 从 GitHub Release 下载 Snacky-DesktopPet.exe，或下载 Snacky-DesktopPet-v1.0.0-win-x64.zip。
-2. 如果下载 ZIP，先解压，里面是 Snacky-桌面宠物.exe。
+1. 从 GitHub Release 下载 RebelliousBurgerKing-DesktopPet.exe，或下载 RebelliousBurgerKing-DesktopPet-v1.0.1-win-x64.zip。
+2. 如果下载 ZIP，先解压，里面是 叛逆汉堡大王-桌面宠物.exe。
 3. 双击 EXE 运行，不需要安装 Codex App，也不需要复制任何宠物资源文件。
 4. 如果 Windows SmartScreen 提示“Windows 已保护你的电脑”，点击“更多信息”，再点击“仍要运行”。
 
 基本操作：
-- 单击 Snacky：挥手。
-- 双击 Snacky：跳跃。
-- 按住 Snacky 拖动：移动位置，移动时播放跑步动作。
-- 右键 Snacky：打开快捷菜单。
-- 点击系统托盘图标：显示或隐藏 Snacky。
+- 单击叛逆汉堡大王：挥手。
+- 双击叛逆汉堡大王：跳跃。
+- 按住叛逆汉堡大王拖动：移动位置，移动时播放跑步动作。
+- 右键叛逆汉堡大王：打开快捷菜单。
+- 点击系统托盘图标：显示或隐藏叛逆汉堡大王。
 - 右键系统托盘图标：打开完整菜单。
 
 菜单功能：
-- 显示/隐藏 Snacky
+- 显示/隐藏叛逆汉堡大王
 - 始终置顶
 - 缩放：75%、100%、125%、150%
 - 重置位置
-- 退出 Snacky-桌面宠物
+- 退出叛逆汉堡大王-桌面宠物
 
 退出方式：
-请右键 Snacky 或系统托盘图标，然后选择“退出 Snacky-桌面宠物”。
+请右键叛逆汉堡大王或系统托盘图标，然后选择“退出叛逆汉堡大王-桌面宠物”。
 
 卸载方式：
-本程序是便携版。删除下载的 EXE 或解压出的 Snacky-桌面宠物.exe 即可。
+本程序是便携版。删除下载的 EXE 或解压出的 叛逆汉堡大王-桌面宠物.exe 即可。
 如果要清除位置和缩放等设置，可以删除：
-%APPDATA%\Snacky-桌面宠物\settings.json
+%APPDATA%\叛逆汉堡大王-桌面宠物\settings.json
 
 说明：
 - 当前版本仅支持 Windows x64。

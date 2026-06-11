@@ -1,16 +1,16 @@
 {
-  "name": "snacky-desktop-pet",
-  "version": "1.0.0",
-  "description": "Snacky desktop pet packaged as a portable Windows app.",
+  "name": "rebellious-burger-king-desktop-pet",
+  "version": "1.0.1",
+  "description": "叛逆汉堡大王 desktop pet packaged as a portable Windows app.",
   "main": "src/main.js",
-  "author": "Snacky-桌面宠物",
+  "author": "叛逆汉堡大王-桌面宠物",
   "license": "MIT",
   "private": true,
   "scripts": {
     "start": "electron .",
     "check:assets": "node scripts/check-assets.js",
     "export:preview": "python scripts/export-preview-media.py",
-    "smoke": "set SNACKY_PET_SMOKE_TEST=1&& electron .",
+    "smoke": "set REBELLIOUS_BURGER_KING_PET_SMOKE_TEST=1&& electron .",
     "package:win": "electron-builder --win portable --x64"
   },
   "devDependencies": {
@@ -18,9 +18,9 @@
     "electron-builder": "^26.0.12"
   },
   "build": {
-    "appId": "com.snackypet.desktop",
-    "productName": "Snacky-桌面宠物",
-    "artifactName": "Snacky-桌面宠物.${ext}",
+    "appId": "com.rebelliousburgerking.desktop",
+    "productName": "叛逆汉堡大王-桌面宠物",
+    "artifactName": "叛逆汉堡大王-桌面宠物.${ext}",
     "files": [
       "src/**/*",
       "assets/**/*",
@@ -43,7 +43,7 @@
       "icon": "build/icon.ico"
     },
     "portable": {
-      "artifactName": "Snacky-桌面宠物.${ext}"
+      "artifactName": "叛逆汉堡大王-桌面宠物.${ext}"
     }
   }
 }

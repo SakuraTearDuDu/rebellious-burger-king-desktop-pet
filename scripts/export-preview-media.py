@@ -71,7 +71,7 @@ def make_scene(frame: Image.Image, title: str, index: int, total: int) -> Image.
     draw = ImageDraw.Draw(scene)
     title_font = load_font(42)
     meta_font = load_font(22)
-    title_text = f"Snacky - {title}"
+    title_text = f"叛逆汉堡大王 - {title}"
     meta_text = f"{index}/{total}"
 
     draw.rounded_rectangle((28, 26, 692, 92), radius=18, fill=(255, 255, 255, 230))
@@ -108,8 +108,8 @@ def export() -> None:
         gif_durations.append(450)
         video_frames.extend(repeat_for_duration(hold, 450))
 
-    gif_path = OUT_DIR / "snacky-animation-preview.gif"
-    mp4_path = OUT_DIR / "snacky-animation-preview.mp4"
+    gif_path = OUT_DIR / "rebellious-burger-king-animation-preview.gif"
+    mp4_path = OUT_DIR / "rebellious-burger-king-animation-preview.mp4"
 
     gif_frames[0].save(
         gif_path,

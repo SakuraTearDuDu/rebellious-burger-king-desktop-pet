@@ -115,7 +115,7 @@ function validateAssets() {
 
   const pet = JSON.parse(fs.readFileSync(PET_JSON_PATH, 'utf8'));
   if (pet.id !== 'snacky' || pet.spritesheetPath !== 'spritesheet.webp') {
-    throw new Error('pet.json must describe the bundled Snacky pet and spritesheet.webp.');
+    throw new Error('pet.json must describe the bundled 叛逆汉堡大王 pet and spritesheet.webp.');
   }
 
   const size = parseWebpSize(SPRITESHEET_PATH);
@@ -236,7 +236,7 @@ function resetPosition() {
 }
 
 function buildMenuTemplate(isTrayMenu) {
-  const visibilityLabel = settings.hidden ? '显示 Snacky' : '隐藏 Snacky';
+  const visibilityLabel = settings.hidden ? '显示 叛逆汉堡大王' : '隐藏 叛逆汉堡大王';
   return [
     {
       label: visibilityLabel,
@@ -264,7 +264,7 @@ function buildMenuTemplate(isTrayMenu) {
     },
     { type: 'separator' },
     {
-      label: isTrayMenu ? '退出 Snacky-桌面宠物' : '退出',
+      label: isTrayMenu ? '退出 叛逆汉堡大王-桌面宠物' : '退出',
       click: () => {
         isQuitting = true;
         app.quit();
@@ -287,7 +287,7 @@ function updateTrayMenu() {
 function createTray() {
   const image = nativeImage.createFromPath(TRAY_ICON_PATH);
   tray = new Tray(image.isEmpty() ? nativeImage.createEmpty() : image);
-  tray.setToolTip('Snacky-桌面宠物');
+  tray.setToolTip('叛逆汉堡大王-桌面宠物');
   tray.on('click', () => setWindowVisibility(settings.hidden));
   updateTrayMenu();
 }
@@ -308,7 +308,7 @@ function createWindow(pet) {
     alwaysOnTop: settings.alwaysOnTop,
     backgroundColor: '#00000000',
     icon: TRAY_ICON_PATH,
-    title: 'Snacky-桌面宠物',
+    title: '叛逆汉堡大王-桌面宠物',
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true,
@@ -323,12 +323,12 @@ function createWindow(pet) {
   mainWindow.webContents.setZoomFactor(1);
   mainWindow.loadFile(path.join(__dirname, 'renderer', 'index.html'));
 
-  if (process.env.SNACKY_PET_SMOKE_TEST === '1') {
+  if (process.env.REBELLIOUS_BURGER_KING_PET_SMOKE_TEST === '1') {
     mainWindow.webContents.once('did-finish-load', () => {
-      console.log('SNACKY_PET_SMOKE_LOADED');
+      console.log('REBELLIOUS_BURGER_KING_PET_SMOKE_LOADED');
     });
     mainWindow.once('ready-to-show', () => {
-      console.log('SNACKY_PET_SMOKE_READY');
+      console.log('REBELLIOUS_BURGER_KING_PET_SMOKE_READY');
       setTimeout(() => {
         isQuitting = true;
         app.quit();
@@ -427,7 +427,7 @@ app.whenReady().then(() => {
     createWindow(pet);
     createTray();
   } catch (error) {
-    dialog.showErrorBox('Snacky-桌面宠物 启动失败', error.message);
+    dialog.showErrorBox('叛逆汉堡大王-桌面宠物 启动失败', error.message);
     app.quit();
   }
 
