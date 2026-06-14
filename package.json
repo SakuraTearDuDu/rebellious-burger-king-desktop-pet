@@ -1,7 +1,7 @@
 {
   "name": "rebellious-burger-king-desktop-pet",
   "version": "1.0.1",
-  "description": "叛逆汉堡大王 desktop pet packaged as a portable Windows app.",
+  "description": "叛逆汉堡大王 desktop pet packaged with Electron.",
   "main": "src/main.js",
   "author": "叛逆汉堡大王-桌面宠物",
   "license": "MIT",
@@ -11,7 +11,8 @@
     "check:assets": "node scripts/check-assets.js",
     "export:preview": "python scripts/export-preview-media.py",
     "smoke": "set REBELLIOUS_BURGER_KING_PET_SMOKE_TEST=1&& electron .",
-    "package:win": "electron-builder --win portable --x64"
+    "package:win": "electron-builder --win portable --x64 --publish never",
+    "package:mac": "electron-builder --mac dmg zip --universal --publish never"
   },
   "devDependencies": {
     "electron": "^37.2.6",
@@ -41,6 +42,25 @@
         }
       ],
       "icon": "build/icon.ico"
+    },
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "universal"
+          ]
+        },
+        {
+          "target": "zip",
+          "arch": [
+            "universal"
+          ]
+        }
+      ],
+      "icon": "build/icon.icns",
+      "category": "public.app-category.entertainment",
+      "identity": null
     },
     "portable": {
       "artifactName": "叛逆汉堡大王-桌面宠物.${ext}"

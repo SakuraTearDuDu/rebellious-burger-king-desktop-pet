@@ -1,10 +1,10 @@
 # 叛逆汉堡大王-桌面宠物
 
-叛逆汉堡大王是一个 Windows 桌面电子宠物。它基于 Electron 打包，内置粉色零食主题 chibi 宠物精灵图，不依赖 Codex App，下载后双击即可运行。
+叛逆汉堡大王是一个基于 Electron 的桌面电子宠物。它内置粉色零食主题 chibi 宠物精灵图，不依赖 Codex App，下载后即可运行。当前提供 Windows x64 便携 EXE，并提供 macOS universal 未签名测试包。
 
 ![叛逆汉堡大王动画预览](media/rebellious-burger-king-animation-preview.gif)
 
-## 下载 EXE
+## 下载 Windows EXE
 
 普通用户请到 GitHub Releases 下载最新版本：
 
@@ -12,9 +12,20 @@
 - 直接运行版：`RebelliousBurgerKing-DesktopPet.exe`
 - 中文文件名压缩包：`RebelliousBurgerKing-DesktopPet-v1.0.1-win-x64.zip`
 
-当前版本仅支持 Windows x64。程序未做代码签名，首次运行时 Windows SmartScreen 可能提示风险，这是未签名个人项目的常见提示。
+Windows 版程序未做代码签名，首次运行时 Windows SmartScreen 可能提示风险，这是未签名个人项目的常见提示。
 
 说明：GitHub Release 对中文附件文件名的下载链接兼容性不好，所以直接下载的 EXE 使用英文文件名。它和本地的 `叛逆汉堡大王-桌面宠物.exe` 是同一个程序；如果希望得到中文文件名，请下载 ZIP，解压后里面就是 `叛逆汉堡大王-桌面宠物.exe`。
+
+## macOS 测试包
+
+macOS 版用于小范围测试。普通用户请到 GitHub Releases 下载：
+
+- DMG 安装包：`RebelliousBurgerKing-DesktopPet-v1.0.1-mac-universal.dmg`
+- `.app` 压缩包：`RebelliousBurgerKing-DesktopPet-v1.0.1-mac-universal.zip`
+
+说明：macOS 的 `.app` 本质上是一个目录包，GitHub Release 不能像普通单文件那样直接上传裸 `.app`。如果需要 `.app`，请下载 ZIP，解压后里面就是可点击运行的 `叛逆汉堡大王-桌面宠物.app`。
+
+macOS 测试包未做 Apple Developer ID 签名和公证。首次打开时，如果系统提示无法验证开发者，可以右键点击 `.app` 选择“打开”，或到“系统设置 > 隐私与安全性”里允许打开。
 
 ## 第一次运行
 
@@ -26,6 +37,8 @@
 4. 运行后桌面上会出现叛逆汉堡大王，任务栏里不会出现普通窗口，主要通过桌面宠物本体和系统托盘控制。
 
 程序是便携版，不需要安装，也不会要求用户手动复制 `pet.json` 或 `spritesheet.webp`。
+
+macOS 测试版可打开 DMG 后运行或拖入 Applications；ZIP 版解压后运行 `.app` 即可。
 
 ## 基本操作
 
@@ -63,6 +76,12 @@ Windows 版配置通常保存在：
 %APPDATA%\叛逆汉堡大王-桌面宠物\settings.json
 ```
 
+macOS 版配置通常保存在：
+
+```text
+~/Library/Application Support/叛逆汉堡大王-桌面宠物/settings.json
+```
+
 如果想恢复默认状态，可以退出程序后删除这个 `settings.json`，再重新运行 EXE。
 
 ## 退出和卸载
@@ -75,7 +94,8 @@ Windows 版配置通常保存在：
 卸载：
 
 - 本项目是便携版，没有安装向导。
-- 删除下载的 EXE 或解压出的 `叛逆汉堡大王-桌面宠物.exe` 即可。
+- Windows：删除下载的 EXE 或解压出的 `叛逆汉堡大王-桌面宠物.exe` 即可。
+- macOS：删除 `.app`、`.dmg` 或解压目录即可。
 - 如需清除用户设置，再删除 `%APPDATA%\叛逆汉堡大王-桌面宠物\settings.json`。
 
 ## 常见问题
@@ -94,7 +114,7 @@ Windows 版配置通常保存在：
 
 ### 能在 macOS 或 Linux 运行吗？
 
-当前 Release 只提供 Windows x64 便携 EXE。源码基于 Electron，未来可以扩展其他平台打包。
+当前 Release 提供 Windows x64 便携 EXE，并支持 macOS universal 未签名测试包。Linux 暂未配置打包目标。
 
 ## 开发
 
@@ -126,6 +146,12 @@ npm run check:assets
 
 ```bash
 npm run package:win
+```
+
+打包 macOS 测试版需要在 macOS 环境执行：
+
+```bash
+npm run package:mac
 ```
 
 打包产物会生成到：

@@ -1,4 +1,4 @@
-name: Build Windows Portable
+name: Build Desktop Packages
 
 on:
   push:
@@ -7,6 +7,20 @@ on:
       - master
   pull_request:
   workflow_dispatch:
+    inputs:
+      upload_release:
+        description: Upload macOS DMG and app ZIP to a GitHub Release
+        required: false
+        default: false
+        type: boolean
+      release_tag:
+        description: Release tag to upload macOS assets to
+        required: false
+        default: v1.0.1
+        type: string
+
+permissions:
+  contents: read
 
 jobs:
   build-windows:
@@ -34,5 +48,50 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: 叛逆汉堡大王-桌面宠物
+          name: 叛逆汉堡大王-桌面宠物-windows-x64
           path: dist/叛逆汉堡大王-桌面宠物.exe
+
+  build-macos:
+    runs-on: macos-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate assets
+        run: npm run check:assets
+
+      - name: Package macOS DMG and ZIP
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: false
+        run: npm run package:mac
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: 叛逆汉堡大王-桌面宠物-macos-universal
+          path: |
+            dist/*.dmg
+            dist/*.zip
+
+      - name: Upload macOS assets to release
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.upload_release == true }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ inputs.release_tag }}
+        run: |
+          mkdir -p release-assets
+          cp "dist/叛逆汉堡大王-桌面宠物.dmg" "release-assets/RebelliousBurgerKing-DesktopPet-${RELEASE_TAG}-mac-universal.dmg"
+          cp "dist/叛逆汉堡大王-桌面宠物.zip" "release-assets/RebelliousBurgerKing-DesktopPet-${RELEASE_TAG}-mac-universal.zip"
+          gh release upload "$RELEASE_TAG" release-assets/* --repo "$GITHUB_REPOSITORY" --clobber
