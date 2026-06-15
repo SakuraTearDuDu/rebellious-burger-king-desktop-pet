@@ -1,3 +1,32 @@
+# v2.0
+
+交互优化版本：解决跳跃/难过状态不易发现，以及缩放只能使用固定倍率的问题。
+
+## 功能
+
+- 保留双击跳跃，并新增连续三击左键触发跳跃。
+- 默认 5 分钟无鼠标互动后进入现有 failed 难过动画，再次鼠标互动后恢复。
+- 新增难过时间设置，可在菜单中选择常用分钟数或自定义 1 到 120 分钟。
+- 缩放支持 50% 到 300% 自定义比例，步进为 5%，并保留常用倍率。
+- 右键菜单和托盘菜单新增“自定义缩放”和“自定义难过时间”设置窗口。
+- 设置会继续保存到 `settings.json`，旧配置可自动规范化读取。
+
+## 下载
+
+请下载 Release 附件中的：
+
+- `RebelliousBurgerKing-DesktopPet.exe`：Windows 直接运行版。
+- `RebelliousBurgerKing-DesktopPet-v2.0-win-x64.zip`：解压后得到中文文件名 `叛逆汉堡大王-桌面宠物.exe`。
+- `RebelliousBurgerKing-DesktopPet-v2.0-mac-universal.dmg`：macOS universal 测试版 DMG。
+- `RebelliousBurgerKing-DesktopPet-v2.0-mac-universal.zip`：macOS universal 测试版 `.app` 压缩包。
+- `RebelliousBurgerKing-DesktopPet-v2.0-linux-amd64.deb`：Linux/UOS/Deepin x64 安装包。
+- `RebelliousBurgerKing-DesktopPet-v2.0-linux-arm64.deb`：Linux/UOS/Deepin ARM64 安装包。
+
+## 已知说明
+
+- 当前版本未做代码签名，Windows SmartScreen 可能提示风险。
+- macOS 测试包未做 Apple Developer ID 签名和公证，首次打开可能需要右键“打开”或到隐私与安全性里允许。
+
 # Unreleased
 
 ## 变更

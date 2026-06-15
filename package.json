@@ -1,6 +1,6 @@
 {
   "name": "rebellious-burger-king-desktop-pet",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "叛逆汉堡大王 desktop pet packaged with Electron.",
   "main": "src/main.js",
   "author": "叛逆汉堡大王-桌面宠物",

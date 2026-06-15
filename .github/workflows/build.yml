@@ -16,7 +16,7 @@ on:
       release_tag:
         description: Release tag to upload assets to
         required: false
-        default: v1.0.1
+        default: v2.0
         type: string
 
 permissions:
@@ -25,6 +25,8 @@ permissions:
 jobs:
   build-windows:
     runs-on: windows-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout
@@ -50,6 +52,20 @@ jobs:
         with:
           name: 叛逆汉堡大王-桌面宠物-windows-x64
           path: dist/叛逆汉堡大王-桌面宠物.exe
+
+      - name: Upload Windows assets to release
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.upload_release == true }}
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ inputs.release_tag }}
+        run: |
+          $version = node -p "require('./package.json').version"
+          $releaseVersion = $version -replace '\.0$',''
+          New-Item -ItemType Directory -Force release-assets | Out-Null
+          Copy-Item "dist/叛逆汉堡大王-桌面宠物.exe" "release-assets/RebelliousBurgerKing-DesktopPet.exe"
+          Compress-Archive -Path "dist/叛逆汉堡大王-桌面宠物.exe" -DestinationPath "release-assets/RebelliousBurgerKing-DesktopPet-v$releaseVersion-win-x64.zip" -Force
+          gh release upload "$env:RELEASE_TAG" release-assets/* --repo "$env:GITHUB_REPOSITORY" --clobber
 
   build-macos:
     runs-on: macos-latest
@@ -132,9 +148,10 @@ jobs:
         shell: bash
         run: |
           version="$(node -p "require('./package.json').version")"
+          release_version="${version%\.0}"
           mkdir -p release-assets
           deb_file="$(find dist -maxdepth 1 -name '*.deb' -print -quit)"
-          cp "$deb_file" "release-assets/RebelliousBurgerKing-DesktopPet-v${version}-linux-${{ matrix.deb_arch }}.deb"
+          cp "$deb_file" "release-assets/RebelliousBurgerKing-DesktopPet-v${release_version}-linux-${{ matrix.deb_arch }}.deb"
 
       - name: Inspect DEB package
         shell: bash
