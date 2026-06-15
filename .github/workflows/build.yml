@@ -9,12 +9,12 @@ on:
   workflow_dispatch:
     inputs:
       upload_release:
-        description: Upload macOS DMG and app ZIP to a GitHub Release
+        description: Upload macOS and Linux assets to a GitHub Release
         required: false
         default: false
         type: boolean
       release_tag:
-        description: Release tag to upload macOS assets to
+        description: Release tag to upload assets to
         required: false
         default: v1.0.1
         type: string
@@ -95,3 +95,68 @@ jobs:
           cp "dist/叛逆汉堡大王-桌面宠物.dmg" "release-assets/RebelliousBurgerKing-DesktopPet-${RELEASE_TAG}-mac-universal.dmg"
           cp "dist/叛逆汉堡大王-桌面宠物.zip" "release-assets/RebelliousBurgerKing-DesktopPet-${RELEASE_TAG}-mac-universal.zip"
           gh release upload "$RELEASE_TAG" release-assets/* --repo "$GITHUB_REPOSITORY" --clobber
+
+  build-linux:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - eb_arch: x64
+            deb_arch: amd64
+          - eb_arch: arm64
+            deb_arch: arm64
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate assets
+        run: npm run check:assets
+
+      - name: Package Linux DEB
+        run: npm run package:linux -- --${{ matrix.eb_arch }}
+
+      - name: Normalize DEB artifact name
+        shell: bash
+        run: |
+          version="$(node -p "require('./package.json').version")"
+          mkdir -p release-assets
+          deb_file="$(find dist -maxdepth 1 -name '*.deb' -print -quit)"
+          cp "$deb_file" "release-assets/RebelliousBurgerKing-DesktopPet-v${version}-linux-${{ matrix.deb_arch }}.deb"
+
+      - name: Inspect DEB package
+        shell: bash
+        run: |
+          deb_file="$(find release-assets -maxdepth 1 -name '*.deb' -print -quit)"
+          dpkg-deb --info "$deb_file"
+          dpkg-deb --field "$deb_file" Architecture | grep -Fx "${{ matrix.deb_arch }}"
+          dpkg-deb --field "$deb_file" Version | grep -Fx "$(node -p "require('./package.json').version")"
+          contents_file="$(mktemp)"
+          dpkg-deb --contents "$deb_file" > "$contents_file"
+          grep -E "/usr/share/applications/.+\\.desktop$" "$contents_file"
+          head -n 20 "$contents_file"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: 叛逆汉堡大王-桌面宠物-linux-${{ matrix.deb_arch }}
+          path: release-assets/*.deb
+
+      - name: Upload Linux assets to release
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.upload_release == true }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ inputs.release_tag }}
+        run: gh release upload "$RELEASE_TAG" release-assets/*.deb --repo "$GITHUB_REPOSITORY" --clobber
